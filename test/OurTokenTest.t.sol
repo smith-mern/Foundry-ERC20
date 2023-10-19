@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-import {Test} from "forge-std/Test.sol";
+import {Test} from "../lib/forge-std/src/Test.sol";
 import {DeployOurToken} from "../script/DeployOurToken.s.sol";
 import {OurToken} from "../src/OurToken.sol";
 
@@ -57,16 +57,8 @@ contract OurTokenTest is Test {
         uint256 finalBalanceSender = ourToken.balanceOf(bob);
         uint256 finalBalanceRecipient = ourToken.balanceOf(alice);
 
-        assertEq(
-            finalBalanceSender,
-            initialBalanceSender - transferAmount,
-            "Sender balance should decrease"
-        );
-        assertEq(
-            finalBalanceRecipient,
-            initialBalanceRecipient + transferAmount,
-            "Recipient balance should increase"
-        );
+        assertEq(finalBalanceSender, initialBalanceSender - transferAmount, "Sender balance should decrease");
+        assertEq(finalBalanceRecipient, initialBalanceRecipient + transferAmount, "Recipient balance should increase");
     }
 
     function testApproveAndAllowance() public {
@@ -77,11 +69,7 @@ contract OurTokenTest is Test {
 
         uint256 allowance = ourToken.allowance(address(this), spender);
 
-        assertEq(
-            allowance,
-            approvalAmount,
-            "Allowance should be set correctly"
-        );
+        assertEq(allowance, approvalAmount, "Allowance should be set correctly");
     }
 
     // function testTransferFrom() public {
